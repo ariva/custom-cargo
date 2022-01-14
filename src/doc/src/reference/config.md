@@ -114,6 +114,9 @@ offline = true              # do not access the network
 [patch.<registry>]
 # Same keys as for [patch] in Cargo.toml
 
+[git]
+ignore-fetch-modules = ["submodule1"] # git submodule will not be fetched
+
 [profile.<name>]         # Modify profile settings via config.
 opt-level = 0            # Optimization level.
 debug = true             # Include debug info.
