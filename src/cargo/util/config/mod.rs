@@ -181,6 +181,7 @@ pub struct Config {
     http_config: LazyCell<CargoHttpConfig>,
     future_incompat_config: LazyCell<CargoFutureIncompatConfig>,
     net_config: LazyCell<CargoNetConfig>,
+    git_config: LazyCell<CargoGitConfig>,
     build_config: LazyCell<CargoBuildConfig>,
     target_cfgs: LazyCell<Vec<(String, TargetCfgConfig)>>,
     doc_extern_map: LazyCell<RustdocExternMap>,
@@ -279,6 +280,7 @@ impl Config {
             http_config: LazyCell::new(),
             future_incompat_config: LazyCell::new(),
             net_config: LazyCell::new(),
+            git_config: LazyCell::new(),
             build_config: LazyCell::new(),
             target_cfgs: LazyCell::new(),
             doc_extern_map: LazyCell::new(),
@@ -1510,6 +1512,11 @@ impl Config {
             .try_borrow_with(|| self.get::<CargoNetConfig>("net"))
     }
 
+    pub fn git_config(&self) -> CargoResult<&CargoGitConfig> {
+        self.git_config
+            .try_borrow_with(|| Ok(self.get::<CargoGitConfig>("git")?))
+    }
+
     pub fn build_config(&self) -> CargoResult<&CargoBuildConfig> {
         self.build_config
             .try_borrow_with(|| self.get::<CargoBuildConfig>("build"))
@@ -2166,6 +2173,12 @@ pub struct CargoNetConfig {
     pub retry: Option<u32>,
     pub offline: Option<bool>,
     pub git_fetch_with_cli: Option<bool>,
+}
+
+#[derive(Debug, Deserialize)]
+#[serde(rename_all = "kebab-case")]
+pub struct CargoGitConfig {
+    pub ignore_fetch_modules: Option<Vec<String>>,
 }
 
 #[derive(Debug, Deserialize)]
