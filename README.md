@@ -1,3 +1,26 @@
+# Custom-Cargo
+
+forked from cargo, added a possibility to ignore submodules in `.cargo/config.toml` [git] section... didn't have time to successfully pass PR in cargo repo, but sharing with the world if someone needs this custom implementation...
+To build and replace cargo, simply run `./custom_cargo.sh`
+
+Example of `.cargo/config.toml`
+
+```
+[net]
+git-fetch-with-cli = true
+offline = false
+
+[http]
+debug = true
+
+[term]
+verbose = true
+
+[git]
+ignore-fetch-modules = ["https://some-private-submodule1.git-good-corporation.com", "https://some-private-submodule2.git-good-corporation.com"] 
+```
+
+---- original cargo info: -------------------
 # Cargo
 
 Cargo downloads your Rust project’s dependencies and compiles your project.

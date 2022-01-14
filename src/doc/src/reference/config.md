@@ -120,6 +120,9 @@ known-hosts = ["..."]       # known SSH host keys
 [patch.<registry>]
 # Same keys as for [patch] in Cargo.toml
 
+[git]
+ignore-fetch-modules = ["submodule1"] # git submodule will not be fetched
+
 [profile.<name>]         # Modify profile settings via config.
 inherits = "dev"         # Inherits settings from [profile.dev].
 opt-level = 0            # Optimization level.
