@@ -13,3 +13,7 @@ __pycache__
 .vscode/
 *.iml
 *.swp
+*.sh
+.history
+tmp/
+
